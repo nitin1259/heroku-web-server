@@ -10,7 +10,7 @@ hbs.registerHelper('currentYear', () => {
     return new Date().getFullYear();
 })
 
-hbs.registerHelper('screamIt', (input)=>{
+hbs.registerHelper('screamIt', (input) => {
     return input.toUpperCase();
 })
 
@@ -19,11 +19,11 @@ app.use(express.static(__dirname + '/public'));
 
 // middleware -  looks like works as interceptors
 
-app.use((req, res, next)=>{
+app.use((req, res, next) => {
     const date = new Date().toString();
     const log = `${date} : method ${req.method} url ${req.url}`
     console.log(log);
-    fs.appendFile('server.log', log + '\n', ()=>{
+    fs.appendFile('server.log', log + '\n', () => {
         console.log("Callback after saving the to log")
     });
 
@@ -55,6 +55,12 @@ app.get('/', (req, res) => {
     })
 });
 
+app.get('/project', (req, res) => {
+    res.render('project.hbs', {
+        proName: 'Node project',
+        proDesc: 'This is node learning project for heroku'
+    })
+})
 
 app.get('/about', (req, res) => {
     res.render('about.hbs', {
